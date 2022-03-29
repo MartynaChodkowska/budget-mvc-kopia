@@ -1,0 +1,30 @@
+{% extends 'baseLogged.html' %}
+
+{% block title %}Profile{% endblock %}
+
+{% block body %}
+
+	<h1>Profile</h1>
+	
+	<div class="col-lg-8 bg-secondary border border-secondary rounded-right my-3 pb-1">
+		<table class="table table-sm table-striped table-light table-hover mt-3 mx-auto text-center">
+			<thead>
+				<tr><th scope="col" colspan="2">Your data</th></tr>
+			</thead>
+			<tbody>
+				<tr>
+					<th scope="row">Name</th>
+					<td>{{ user.name }}</td>
+				</tr>
+				<tr>
+					<th scope="row">email</th>
+					<td>{{ user.email }}</td>
+				</tr>
+			</tbody>
+		</table>
+
+		<a href="/profile/edit"><button class="btn btn-light btn-outline-dark col-8">Edit</button></a>	
+	</div>
+
+	
+{% endblock %}

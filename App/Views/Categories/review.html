@@ -1,0 +1,67 @@
+{% extends 'baseLogged.html' %}
+
+{% block title %}Categories review{% endblock %}
+
+{% block body %}
+
+{% if user.errors is not empty %}
+<p>Errors: </p>
+<ul>
+    {% for error in user.errors %}
+        <li>{{error}}</li>
+    {% endfor %}
+</ul>
+{% endif %}	
+
+<div class="buttons col-lg-8 bg-secondary border border-secondary rounded-right mb-3 px-5">
+    <table class="table table-sm table-striped table-light mt-4 mx-auto border">
+        <thead>
+            <tr><th colspan="2" class="p-3 border border-bottom">incomes categories</th></tr>
+            <tr><th>no.</th><th>name</th></tr>
+        </thead>
+        <tbody>
+
+            {% for category in incomesCategories %}
+                <tr>
+                    <th>{{ loop.index }}</th>
+                    <td>{{ category.name }}</td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="2">there are no categories for incomes</td>
+                </tr>
+            {% endfor %}
+                
+        </tbody>
+    </table>
+ 
+    <table class="table table-sm table-striped table-light mt-1 mx-auto border">
+        <thead>
+            <tr><th colspan="2" class="p-3 border border-bottom">expenses categories</th></tr>
+            <tr><th>no.</th><th>name</th></tr>
+        </thead>
+        <tbody>
+
+            {% for category in expensesCategories %}
+                <tr>
+                    <th>{{ loop.index }}</th>
+                    <td>{{ category.name }}</td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="2">there are no categories for expeneses</td>
+                </tr>
+            {% endfor %}
+
+        </tbody>
+    </table>
+
+    <a href="/categories/edit"><button type="button" class="btn-light mb-3">edit</button></a> 
+    / 
+    <a href="/categories/delete"><button type="button" class="btn-light mb-3">delete</button></a>
+
+    
+
+</div>
+
+{% endblock %}

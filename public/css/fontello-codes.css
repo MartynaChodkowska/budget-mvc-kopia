@@ -1,0 +1,8 @@
+
+.icon-cog:before { content: '\e800'; } /* '' */
+.icon-home:before { content: '\e801'; } /* '' */
+.icon-login:before { content: '\f02c'; } /* '' */
+.icon-logout:before { content: '\f02d'; } /* '' */
+.icon-user:before { content: '\f061'; } /* '' */
+.icon-eye:before { content: '\f082'; } /* '' */
+.icon-spread:before { content: '\f527'; } /* '' */

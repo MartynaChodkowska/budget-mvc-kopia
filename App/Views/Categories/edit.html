@@ -1,0 +1,70 @@
+{% extends 'baseLogged.html' %}
+
+{% block title %}Edit category{% endblock %}
+
+{% block body %}
+
+{% if user.errors is not empty %}
+<p>Errors: </p>
+<ul>
+    {% for error in user.errors %}
+        <li>{{error}}</li>
+    {% endfor %}
+</ul>
+{% endif %}	
+
+<div class="buttons col-lg-8 bg-secondary border border-secondary rounded-right mb-3 px-5">
+    <table class="table table-sm table-striped table-light mt-5 mx-auto border">
+        <thead>
+            <tr><th colspan="4" class="p-3 border border-bottom">incomes categories</th></tr>
+            <tr><th>no.</th><th>name</th><th></th><th>action</th></tr>
+        </thead>
+        <tbody>
+
+            {% for category in incomesCategories %}
+                <tr>
+                    <th>{{ loop.index }}</th>
+                    <form id="editCategory" method="post" action="update">
+                        <td><input type="text" id="newCategory" name="newCategory" value=" {{ category.name }}" class="py-0"></td>
+                        <td><input type="hidden" id="categoryId" name="categoryId" value="{{ category.id }}"></td>
+                        <td><input type="submit" value="OK" class="mt-0 py-0"></td>
+                    </form>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="4">there are no categories for incomes</td>
+                </tr>
+            {% endfor %}
+
+        </tbody>
+    </table>
+
+    <table class="table table-sm table-striped table-light mt-5 mx-auto border">
+        <thead>
+            <tr><th colspan="4" class="p-3 border border-bottom">expenses categories</th></tr>
+            <tr><th>no.</th><th>name</th><th></th><th>action</th></tr>
+        </thead>
+        <tbody>
+
+            {% for category in expensesCategories %}
+                <tr>
+                    <th>{{ loop.index }}</th>
+                    <form id="editCategory" method="post" action="update">
+                        <td><input type="text" id="newCategory" name="newCategory" value=" {{ category.name }}" class="py-0"></td>
+                        <td><input type="hidden" id="categoryId" name="categoryId" value="{{ category.id }}"></td>
+                        <td><input type="submit" value="OK" class="mt-0 py-0"></td>
+                    </form>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="4">there are no categories for expeneses</td>
+                </tr>
+            {% endfor %}
+
+        </tbody>
+    </table>
+    
+
+</div>
+
+{% endblock %}

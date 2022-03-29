@@ -1,0 +1,73 @@
+{% extends 'baseLogged.html' %}
+
+{% block title %}{{ action }}expenses pie chart{% endblock %}
+
+{% block footer %}
+
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<script type="text/javascript"> 
+
+    var my_2d = '{{ data2d|json_encode|raw }}';
+    var obj = JSON.parse(my_2d);
+    console.log(obj);
+    
+    // Draw the pie chart when Charts is loaded.
+    google.charts.load('current', {'packages':['corechart']});
+         // Callback that draws the pie chart
+         google.charts.setOnLoadCallback(draw_my_chart);
+         
+        function draw_my_chart() {
+            // Create the data table .
+            var data = new google.visualization.DataTable();
+            data.addColumn('string', 'transactionGroup_id');
+            data.addColumn('number', 'totalAmount');
+                
+         //add the JavaScript two dimensional array data into required chart format
+            for(i = 0; i < obj.length; i++)
+               data.addRow([obj[i][0], parseInt(obj[i][1])]);
+            
+          /*  for(i = 0; i < my_2d.length; i++){
+             data.addRow([
+                 
+                 ['{{ data2d.transactionGroup_id }}', {{ data2d.totalAmount}}]
+             ]);
+            }*/
+            var options = {title: 'your expenses',
+                       width:600,
+                       height:500};
+
+        // Instantiate and draw the chart
+            var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
+            chart.draw(data, options);
+      }
+</script>
+
+{% endblock %}
+
+
+{% block body %}
+
+    {% if user.errors is not empty %}
+    <p>Errors: </p>
+    <ul>
+        {% for error in user.errors %}
+            <li>{{error}}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}	
+
+	<div class="buttons col-lg-8 bg-secondary border border-secondary rounded-right mb-3">
+	 <button type="button" class="btn btn-sm btn-light">running month</button>
+     <button type="button" class="btn btn-sm btn-light">previous month</button>
+     <button type="button" class="btn btn-sm btn-light">running year</button>
+     <button type="button" class="btn btn-sm btn-light">custom dates</button>
+
+     <div id="chart_div"></div>
+
+      {{ data2d }}
+
+   
+
+	</div>
+	
+{% endblock %}

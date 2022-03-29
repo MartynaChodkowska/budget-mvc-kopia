@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block aside %}
+
+{% if current_user %}
+<aside class="col-lg-4">
+	<h5>Transactions review</h5>
+	<ul>
+		<a href="/transaction/addincome" class="list-group-item list-group-item-dark list-group-item-action">add income</a>
+		<a href="/transaction/addexpense" class="list-group-item list-group-item-dark list-group-item-action">add expense</a>
+		<a href="/transaction/lasttransactions" class="list-group-item list-group-item-dark list-group-item-action">last transactions</a>
+	</ul>
+	<h5 class="mt-5">Balance sheets review</h5>
+	<ul>
+		<a href="/balancesheet/currentmonth" class="list-group-item list-group-item-dark list-group-item-action">running month</a>
+		<a href="/balancesheet/previousmonth" class="list-group-item list-group-item-dark list-group-item-action">previous month</a>
+		<a href="/balancesheet/currentyear" class="list-group-item list-group-item-dark list-group-item-action">running year</a>
+		<a href="/balancesheet/selectdates" class="list-group-item list-group-item-dark list-group-item-action">custom dates</a>
+	</ul>
+	<h5 class="mt-5">Categories manager</h5>
+	<ul>
+		<a href="/categories/review" class="list-group-item list-group-item-dark list-group-item-action">categories review</a>
+		<a href="/categories/add" class="list-group-item list-group-item-dark list-group-item-action">add category</a>
+	</ul>
+</aside>
+{% endif %}
+
+{% endblock %}

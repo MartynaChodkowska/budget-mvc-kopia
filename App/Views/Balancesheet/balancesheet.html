@@ -1,0 +1,148 @@
+{% extends 'baseLogged.html' %}
+
+{% block title %}{{ action }} balance sheet{% endblock %}
+
+{% block body %}
+
+    {% if user.errors is not empty %}
+    <p>Errors: </p>
+    <ul>
+        {% for error in user.errors %}
+            <li>{{error}}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}	
+
+	<div class="buttons col-lg-8 bg-secondary border border-secondary rounded-right mb-3">
+		<h4 class="mt-2"><strong> {{ action }} balance sheet</strong></h4>
+		<table class="table table-sm table-striped table-light table-hover mt-3 mx-auto text-center">
+			<thead class="thead-dark">
+				<tr><th colspan="2" scope="col" class="p-2 text-success border-bottom">INCOMES</th></tr>
+				<tr><th scope="col">category</th><th scope="col">amount</th></tr>
+			</thead>
+			<tbody>
+				{% if incomes is empty %}
+					<tr>
+						<td colspan="2">there are no transactions</td>
+					</tr>
+				{% else %}
+					{% for income in incomes %}
+						<tr>
+							{% for group in groups %}
+								{% if group.id == income.transactionGroup_id %}
+									<td>{{ group.name }}</td>
+								{% endif %}
+							{% endfor %}
+							<td>{{ income.totalAmount }} PLN</td>
+						</tr>
+					{% endfor %}
+					<tr>
+						<th>total</th>
+						{% if totalIncomes matches '/^\\d+$/' %}
+						<th>{{ totalIncomes }}.00 PLN</th>
+						{% else %}
+							<th>{{ totalIncomes }} PLN</th>
+						{% endif %}
+					</tr>
+				{% endif %}
+				
+			</tbody>
+		</table>
+		<hr>
+		<table class="table table-sm table-striped table-light table-hover mt-3 mx-auto text-center">
+			<thead>
+				<tr><th colspan="2" scope="col" class="p-2 text-danger border-bottom">EXPENSES</th></tr>
+				<tr><th scope="col">category</th><th scope="col">amount</th></tr>
+			</thead>
+			<tbody>
+					{% if expenses is empty %}
+						<tr>
+							<td colspan="2">there are no transactions</td>
+						</tr>
+					{% else %}	
+						{% for expense in expenses %}
+							<tr>
+								{% for group in groups %}
+									{% if group.id == expense.transactionGroup_id %}
+										<td>{{ group.name }}</td>
+									{% endif %}
+								{% endfor %}
+								<td>{{ expense.totalAmount }} PLN</td>
+							</tr>
+						{% endfor %}
+						<tr>
+							<th>total</th>
+							{% if totalIncomes matches '/^\\d+$/' %}
+								<th>{{ totalExpenses }}.00 PLN</th>
+							{% else %}
+								<th>{{ totalExpenses }} PLN</th>
+							{% endif %}
+						</tr>
+					{% endif %}
+			</tbody>
+		</table>
+		<hr>
+		<table class="table table-sm table-striped table-light table-hover mt-3 mx-auto text-center">
+			<thead>
+				<tr><th scope="col" colspan="2" class="p-2 text-warning border-bottom">SUMMARY</th></tr>
+			</thead>
+			<tbody>
+				{% if incomes is empty and expenses is empty %}
+					<tr>
+						<td colspan="2">there are no transactions</td>
+					</tr>
+				{% else %}
+				<tr>
+					<td scope="row">Incomes</td>
+					{% if totalIncomes matches '/^\\d+$/' %}
+						<td>{{ totalIncomes }}.00 PLN</td>
+					{% else %}
+						<td>{{ totalIncomes }} PLN</td>
+					{% endif %}
+				</tr>
+				<tr>
+					<td scope="row">Expenses</td>
+					{% if totalExpenses matches '/^\\d+$/' %}
+						<td>{{ totalExpenses }}.00 PLN</td>
+					{% else %}
+						<td>{{ totalExpenses }} PLN</td>
+					{% endif %}
+
+				</tr>
+				<tr>
+					<th scope="row">result</th>
+					{% set result = (totalIncomes - totalExpenses) %}
+					{% if result matches '/^\\d+$/' %}
+						<th>{{ result }}.00 PLN</th>
+					{% elseif result matches '/^-\\d+$/' %}
+						<th>{{ result }}.00 PLN</th>
+					{% else %}
+						<th>{{ result }} PLN</th>
+					{% endif %}
+				</tr>
+				{% endif %}
+			</tbody>
+		</table>
+		<hr>
+		<div class="p-3">
+			{% if incomes is empty and expenses is empty %}
+			{% else %}
+				{% if result > 0 %}
+					<h1 style='color: ForestGreen; font-weight: 900;'>You are doing great job!</h1>
+				{% elseif (totalIncomes - totalExpenses) < 0 %}
+					<h1 style='color: FireBrick; font-weight: 900;'>Whoaa! Slow down with your expenses..</h1>
+				{% else %}
+					<h1 style='color: gold; font-weight: 900;'>well... could be worse, but still - try to make an effort to make some savings</h1>
+				{% endif %}
+			{% endif %}
+		</div>
+		<hr>
+		<form>
+			<a href="/balancesheet/piechart">
+				<button type="button" class="btn btn-info btn-lg mb-3">do you want to know how your expenses look like?</button>
+			</a>
+		</form>
+
+	</div>
+	
+{% endblock %}
