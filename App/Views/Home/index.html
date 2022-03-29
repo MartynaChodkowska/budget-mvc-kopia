@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+
+{% block title %}Art of finance{% endblock %}
+
+{% block header%}
+	<h1 class="display-5 my-4">let's make a masterpiece of your money!</h1>
+{% endblock %}
+	
+{% block body %}
+
+	<div class="row">
+		<div class="card col-xs-12 col-lg-6 bg-piggy">
+			<img class="card-img-top my-2"  src="img/messyhead.png" alt="">
+			<div class="card-body bg-piggy">
+				<p class="card-text">
+					<p>too little incomes, too little spendings?</p>
+					<p>too little incomes, too much spendings?</p>
+					<p>too much incomes, too much spendings?</p>		
+					<p>too much incomes, too little spendings?<p/>
+					<h5 class="card-title">don't let your head explode!</h5>
+				</p>
+			</div>
+		</div>		
+		<div class="card col-xs-12 col-lg-6 bg-piggy">
+			<img class="card-img-top my-2"  src="img/clear.png" alt="headExplode">
+			<div class="card-body bg-piggy">
+				<h5 class="card-title">let's keep it simple</h5>
+				<p class="card-text">& make it the best possible way -
+					<span class="d-block">clear, plain & beautiful!</span>
+				</p>
+				{% if not current_user %}
+				<hr>
+				<p>
+					<a href="/login"><button type="button" class="btn-light">sign in</button></a>
+					or  <a href="/signup/new"><button type="button" class="btn-light">join us</button></a> if you haven't signed up yet
+				</p>
+				{% endif %}
+			</div>
+		</div>
+	</div>	
+	
+	
+{% endblock %}

@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+
+{% block title %}Log in{% endblock %}
+
+{% block footer %}
+	<script src="/js/hideShowPassword.min.js"></script>
+	<script>
+		
+		$(document).ready(function(){
+			
+			/**
+			 * Validate the form
+			 */
+			$('#formSignup').validate({
+				rules: {
+					name: 'required',
+					email: {
+						required: true,
+						email: true,
+						remote: '/account/validate-email'				
+					},
+					password: {
+                        required: true,
+                        minlength: 6,
+                        validPassword: true
+                    }
+				},
+				messages: {
+					email: {
+						remote: 'email already taken'
+					}
+				}
+			});
+			
+			/**
+			 * Show password toggle button
+			 */
+			$('#inputPassword').hideShowPassword({
+				show: false,
+				innerToggle: 'focus'
+			});
+		});
+	</script>
+	
+{% endblock %}
+
+{% block body %}
+
+    <h1>log in</h1>
+	
+	<form action="/login/create" method="post">
+	
+		<div class="form-group col-sm-8 offset-sm-2 col-md-6 offset-md-3 col-lg-4 offset-lg-4">
+			<label for="inputEmail">Email address</label>
+			<input type="email" id="inputEmail" name="email" placeholder="Email address" autofocus value="{{ email }}" class="form-control" >			
+		</div>
+		<div class="form-group col-sm-8 offset-sm-2 col-md-6 offset-md-3 col-lg-4 offset-lg-4">
+			<label for="inputPassword">Password</label>
+			<input type="password" id="inputPassword" name="password" placeholder="Password" class="form-control" />
+		</div>
+		<div class="checkbox">
+			<input type="checkbox" name="remember_me"{% if remember_me %} checked="checked" {% endif %}/> Remember me
+		</div>
+		
+		<button type="submit" class="btn btn-light btn-outline-secondary">Log in</button>
+		<a href="/Password/forgot">Forgot password?</a>
+		
+	</form>	
+	
+{% endblock %}

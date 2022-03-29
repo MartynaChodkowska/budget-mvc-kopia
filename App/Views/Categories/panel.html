@@ -1,0 +1,28 @@
+{% extends 'baseLogged.html' %}
+
+{% block title %}Categories manager{% endblock %}
+
+{% block body %}
+
+{% if user.errors is not empty %}
+<p>Errors: </p>
+<ul>
+    {% for error in user.errors %}
+        <li>{{error}}</li>
+    {% endfor %}
+</ul>
+{% endif %}	
+
+<div class="buttons col-lg-8 bg-secondary border border-secondary rounded-right mb-3 pt-5">
+    
+    <button type="button" class="btn btn-outline-secondary bg-light col-sm-8 col-lg-4 m-4">
+        <a href="/categories/review"><div class="icon">x</div>categories review</a>
+    </button>
+
+    <button type="button" class="btn btn-outline-secondary bg-light col-sm-8 col-lg-4 m-4">
+        <a href="/categories/add"><div class="icon">v</div>add category</a>
+    </button>
+
+</div>
+
+{% endblock %}

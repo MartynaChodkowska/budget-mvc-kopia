@@ -1,0 +1,36 @@
+{% extends 'baseLogged.html' %}
+
+{% block title %}Balance sheet panel{% endblock %}
+
+{% block body %}
+
+{% if user.errors is not empty %}
+<p>Errors: </p>
+<ul>
+    {% for error in user.errors %}
+        <li>{{error}}</li>
+    {% endfor %}
+</ul>
+{% endif %}	
+
+<div class="buttons col-lg-8 bg-secondary border border-secondary rounded-right mb-3">
+    
+    <button type="button" class="btn btn-outline-secondary bg-light col-sm-8 col-lg-4 m-4">
+        <a href="/balancesheet/currentmonth"><div class="icon">Y</div>running month</a>
+    </button>
+
+    <button type="button" class="btn btn-outline-secondary bg-light col-sm-8 col-lg-4 m-4">
+        <a href="/balancesheet/previousmonth"><div class="icon">r</div>previous month</a>
+    </button>
+
+    <button type="button" class="btn btn-outline-secondary bg-light col-sm-8 col-lg-4 m-4">
+        <a href="/balancesheet/currentyear"><div class="icon">L</div>running year</a>
+    </button>
+
+    <button type="button" class="btn btn-outline-secondary bg-light col-sm-8 col-lg-4 m-4">
+        <a href="/balancesheet/selectdates"><div class="icon">y</div>custom dates</a>
+    </button>
+
+</div>
+
+{% endblock %}

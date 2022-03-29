@@ -1,0 +1,8 @@
+# Activation of the SSL certificate
+RewriteEngine On
+RewriteCond %{HTTPS} !=on 
+RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+# changing root folder
+RewriteCond %{REQUEST_URI} !^/public/
+RewriteRule ^(.*)$ /public/$1 [QSA]
